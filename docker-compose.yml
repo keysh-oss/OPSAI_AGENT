@@ -1,0 +1,28 @@
+version: '3.8'
+services:
+  neo4j:
+    image: neo4j:5.11
+    container_name: opsai_neo4j
+    ports:
+      - '7474:7474'
+      - '7687:7687'
+    environment:
+      NEO4J_AUTH: 'neo4j/neo4j'
+    volumes:
+      - neo4j_data:/data
+
+  web:
+    build: .
+    container_name: opsai_web
+    ports:
+      - '8080:8080'
+    environment:
+      - OPENAI_API_KEY
+      - NEO4J_URI=bolt://neo4j:7687
+      - NEO4J_USER=neo4j
+      - NEO4J_PASSWORD=neo4j
+    depends_on:
+      - neo4j
+
+volumes:
+  neo4j_data:
