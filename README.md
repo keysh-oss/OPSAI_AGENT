@@ -72,3 +72,8 @@ set -a && source .env && set +a && DRY_RUN=0 python -m opsai_agent.scripts.sync_
 To run the slack sync
 
 set -a && source .env && set +a && SLACK_CHANNEL_NAME=my-channel-name python -m opsai_agent.scripts.sync_slack_channel
+
+
+To run confluence sync
+
+set -a && source .env && set +a && python -m opsai_agent.scripts.sync_confluence --since 2026-02-01 --write
